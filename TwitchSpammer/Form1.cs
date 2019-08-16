@@ -103,8 +103,8 @@ namespace TwitchSpammer
 
 
             // Populate listview with imagelist
-            for (int i = 0; i < 5; i++)
-            {
+            //for (int i = 0; i < 5; i++)
+            //{
 
                 listView1.LargeImageList = imageList1;
 
@@ -113,7 +113,14 @@ namespace TwitchSpammer
 
                     listView1.Items.Add(key, key);
                 }
-            }
+            //}
+        }
+
+        private void ClearImagesList()
+        {
+
+            imageList1.Images.Clear();
+            
         }
 
         private void getSavedText()
@@ -330,11 +337,7 @@ namespace TwitchSpammer
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            Clipboard.SetImage(imageList1.Images[imageList1.Images.IndexOfKey("Kappa")]);
-            richTextBox1.Paste();
-        }
+       
 
         private void button7_Click(object sender, EventArgs e)
         {
@@ -359,9 +362,7 @@ namespace TwitchSpammer
             wc.DownloadFileCompleted += new AsyncCompletedEventHandler(EmoteUpdateFileComplete);
             wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
             wc.Headers.Add("User-Agent: Other");
-            wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/AandyLi/TwitchSpammer/master/emotelinks.txt"), emoteFile);
-
-            
+            wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/AandyLi/TwitchSpammer/master/emotelinks.txt"), emoteFile);  
 
         }
 
@@ -369,6 +370,8 @@ namespace TwitchSpammer
         {
 
             DownloadInfo DI = new DownloadInfo(0, 0);
+
+            bool addedNewEmotes = false;
 
             // Read file
             List<string> currentEmotes = new List<string>();
@@ -400,7 +403,7 @@ namespace TwitchSpammer
                 if (!emoteFound)
                 {
                     DI.TotalDownloads++;
-
+                    addedNewEmotes = true;
                     UpdateDownloadEmoteText(DI);
 
                     // download emote
@@ -409,13 +412,34 @@ namespace TwitchSpammer
                 }
             }
 
+
+            if (addedNewEmotes)
+            {
+                MessageBox.Show(DI.TotalDownloads.ToString() + " new emotes were added!");
+                ReloadEmotes();
+            }
+            else
+            {
+                MessageBox.Show("No new emotes were added");
+            }
+
             if (File.Exists(emoteFile))
             {
                 File.Delete(emoteFile);
             }
 
         }
+        private void ReloadEmotes()
+        {
+            foreach (ListViewItem item in listView1.Items)
+            {
 
+                listView1.Items.Remove(item);
+            }
+
+            ClearImagesList();
+            getImages();
+        }
         private void UpdateDownloadEmoteText(DownloadInfo DI)
         {
             label11.Text = "Downloading emote " + DI.CurrentDownload + " of " + DI.TotalDownloads.ToString();
@@ -446,7 +470,7 @@ namespace TwitchSpammer
 
         private void complete(object sender, AsyncCompletedEventArgs e)
         {
-            MessageBox.Show("Download complete");
+           //MessageBox.Show("Download complete");
         }
 
         private void updateProgressBar(object sender, DownloadProgressChangedEventArgs e)
