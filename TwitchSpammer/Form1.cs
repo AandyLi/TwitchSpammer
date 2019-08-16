@@ -266,6 +266,8 @@ namespace TwitchSpammer
 
             // Send ENTER
 
+            SendKeys.Send("{ENTER}");
+
             Cursor.Position = currentMousePos;
         }
 
