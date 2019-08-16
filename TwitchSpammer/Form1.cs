@@ -46,7 +46,12 @@ using System.Net;
     Future:
     Emote pictures - done
     Emote pictures embedded in text
-    Server sided emote updates
+    Server sided emote updates - done
+
+
+    Add in app info
+    Clean up code
+    Add exceptions
 
      */
 
