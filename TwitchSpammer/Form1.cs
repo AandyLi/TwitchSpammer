@@ -338,13 +338,110 @@ namespace TwitchSpammer
 
         private void button7_Click(object sender, EventArgs e)
         {
+            DownloadEmoteUpdateFile();
+
+
+
+            //WebClient wc = new WebClient();
+
+            //wc.DownloadFileCompleted += new AsyncCompletedEventHandler(complete);
+            //wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
+            //wc.Headers.Add("User-Agent: Other");
+            //wc.DownloadFileAsync(new Uri("https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg"), @"c:\test\file2.jpg");
+        }
+
+
+        private void DownloadEmoteUpdateFile()
+        {
             WebClient wc = new WebClient();
 
+            string emoteFile = @"emoteFile.txt";
+            wc.DownloadFileCompleted += new AsyncCompletedEventHandler(EmoteUpdateFileComplete);
+            wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
+            wc.Headers.Add("User-Agent: Other");
+            wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/AandyLi/TwitchSpammer/master/emotelinks.txt"), emoteFile);
 
+            
+
+        }
+
+        private void ReadEmoteFile(string emoteFile)
+        {
+
+            DownloadInfo DI = new DownloadInfo(0, 0);
+
+            // Read file
+            List<string> currentEmotes = new List<string>();
+
+            foreach (String path in Directory.GetFiles("../../Images"))
+            {
+                Console.WriteLine(path);
+
+                currentEmotes.Add(Path.GetFileNameWithoutExtension(path));
+            }
+
+            string[] lines = File.ReadAllLines(emoteFile);
+
+            foreach (string line in lines)
+            {
+                string[] splitLine = line.Split(' ');
+
+                bool emoteFound = false;
+
+                // Look for emote 
+                foreach (string emote in currentEmotes)
+                {
+                    if (splitLine[0] == emote)
+                    {
+                        emoteFound = true;
+                    }
+                }
+
+                if (!emoteFound)
+                {
+                    DI.TotalDownloads++;
+
+                    UpdateDownloadEmoteText(DI);
+
+                    // download emote
+                    DownloadEmote(splitLine[0], splitLine[1], DI);
+                    
+                }
+            }
+
+            if (File.Exists(emoteFile))
+            {
+                File.Delete(emoteFile);
+            }
+
+        }
+
+        private void UpdateDownloadEmoteText(DownloadInfo DI)
+        {
+            label11.Text = "Downloading emote " + DI.CurrentDownload + " of " + DI.TotalDownloads.ToString();
+        }
+
+        private void DownloadEmote(string emote, string link, DownloadInfo DI)
+        {
+            DI.CurrentDownload++;
+
+            string path = @"../../Images/";
+
+            WebClient wc = new WebClient();
+            
             wc.DownloadFileCompleted += new AsyncCompletedEventHandler(complete);
             wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
             wc.Headers.Add("User-Agent: Other");
-            wc.DownloadFileAsync(new Uri("https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg"), @"c:\test\file2.jpg");
+            wc.DownloadFileAsync(new Uri(link), path + emote + ".png");
+
+            UpdateDownloadEmoteText(DI);
+        }
+
+        private void EmoteUpdateFileComplete(object sender, AsyncCompletedEventArgs e)
+        {
+
+            string emoteFile = @"emoteFile.txt";
+            ReadEmoteFile(emoteFile);
         }
 
         private void complete(object sender, AsyncCompletedEventArgs e)

@@ -55,6 +55,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -68,7 +69,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -335,6 +336,19 @@
             this.panel2.TabIndex = 20;
             this.panel2.Visible = false;
             // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox5.Location = new System.Drawing.Point(7, 118);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(251, 28);
+            this.checkBox5.TabIndex = 24;
+            this.checkBox5.Text = "Show mouse debug info";
+            this.toolTip1.SetToolTip(this.checkBox5, "Automatically adds a space after adding an emote");
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            // 
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
@@ -457,24 +471,21 @@
             this.progressBar1.Size = new System.Drawing.Size(178, 23);
             this.progressBar1.TabIndex = 27;
             // 
-            // checkBox5
+            // label11
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox5.Location = new System.Drawing.Point(7, 118);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(251, 28);
-            this.checkBox5.TabIndex = 24;
-            this.checkBox5.Text = "Show mouse debug info";
-            this.toolTip1.SetToolTip(this.checkBox5, "Automatically adds a space after adding an emote");
-            this.checkBox5.UseVisualStyleBackColor = true;
-            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(861, 458);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 13);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "label11";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1176, 605);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -561,6 +572,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Label label11;
     }
 }
 
