@@ -98,18 +98,22 @@ namespace TwitchSpammer
         private void getImages()
         {
 
+
+            string imgPath = GetImagesFolderPath();
+
+
             // Load images into imagelist
-            foreach (String path in Directory.GetFiles("../../Images"))
+            try
             {
-                Console.WriteLine(path);
+                // Create directory, is ignored if folder already exists
+                Directory.CreateDirectory(imgPath);
 
-                imageList1.Images.Add(Path.GetFileNameWithoutExtension(path), Image.FromFile(path));
-            }
+                foreach (String path in Directory.GetFiles(imgPath))
+                {
+                    Console.WriteLine(path);
 
-
-            // Populate listview with imagelist
-            //for (int i = 0; i < 5; i++)
-            //{
+                    imageList1.Images.Add(Path.GetFileNameWithoutExtension(path), Image.FromFile(path));
+                }
 
                 listView1.LargeImageList = imageList1;
 
@@ -118,7 +122,13 @@ namespace TwitchSpammer
 
                     listView1.Items.Add(key, key);
                 }
-            //}
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("No image folder found" + e.Message);
+                throw;
+            }
+           
         }
 
         private void ClearImagesList()
@@ -130,7 +140,7 @@ namespace TwitchSpammer
 
         private void getSavedText()
         {
-            string path = "../../SavedText.txt";
+            string path = GetSaveTextFolderPath();
 
             if (File.Exists(path))
             {
@@ -302,7 +312,7 @@ namespace TwitchSpammer
         private void saveCustomTextToFile(string text)
         {
 
-            string path = "../../SavedText.txt";
+            string path = GetSaveTextFolderPath();
 
             File.AppendAllText(path, text + "\n");
           
@@ -383,7 +393,7 @@ namespace TwitchSpammer
             // Read file
             List<string> currentEmotes = new List<string>();
 
-            foreach (String path in Directory.GetFiles("../../Images"))
+            foreach (String path in Directory.GetFiles(GetImagesFolderPath()))
             {
                 Console.WriteLine(path);
 
@@ -456,7 +466,7 @@ namespace TwitchSpammer
         {
             DI.CurrentDownload++;
 
-            string path = @"../../Images/";
+            string path = GetImagesFolderPath();
 
             WebClient wc = new WebClient();
             
@@ -523,7 +533,7 @@ namespace TwitchSpammer
 
         private void RemoveFromSaveFile(ListViewItem item)
         {
-            string path = "../../SavedText.txt";
+            string path = GetSaveTextFolderPath();
 
             string textToRemove = item.Text;
 
@@ -559,6 +569,34 @@ namespace TwitchSpammer
                 label2.Visible = false;
                 label3.Visible = false;
             }
+        }
+
+        private string GetImagesFolderPath()
+        {
+#if DEBUG
+
+            string imgPath = "../../Images/";
+
+            return imgPath;
+#else
+
+            string imgPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"/TwitchSpammer/Images/";
+            return imgPath;
+#endif
+        }
+
+        private string GetSaveTextFolderPath()
+        {
+#if DEBUG
+
+            string imgPath = "../../SavedText.txt";
+
+            return imgPath;
+#else
+            string imgPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"/TwitchSpammer/SavedText.txt";
+
+            return imgPath;
+#endif
         }
     }
 }
