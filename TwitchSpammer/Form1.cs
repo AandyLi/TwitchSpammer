@@ -84,7 +84,7 @@ namespace TwitchSpammer
 
             GetDebugSettings();
 
-            ServicePointManager.DefaultConnectionLimit = 100;
+            //ServicePointManager.DefaultConnectionLimit = 100;
             //ServicePointManager.ServerCertificateValidationCallback = delegate
             //{ return true; };
 
