@@ -84,13 +84,13 @@ namespace TwitchSpammer
 
             GetDebugSettings();
 
-            //ServicePointManager.DefaultConnectionLimit = 100;
-            //ServicePointManager.ServerCertificateValidationCallback = delegate
-            //{ return true; };
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = 
+                     SecurityProtocolType.Tls
+                   | SecurityProtocolType.Tls11
+                   | SecurityProtocolType.Tls12
+                   | SecurityProtocolType.Ssl3;
 
-            //Trust all certificates
-            //System.Net.ServicePointManager.ServerCertificateValidationCallback =
-            //    ((sender, certificate, chain, sslPolicyErrors) => true);
         }
 
         private void GetDebugSettings()
@@ -423,16 +423,11 @@ namespace TwitchSpammer
                 // Look for emote 
                 foreach (string emote in currentEmotes)
                 {
-                    if (splitLine[0] == emote)
+                    if (splitLine[0] == emote || splitLine[0].Contains(":"))
                     {
                         emoteFound = true;
                     }
 
-                        // remove later
-                        if (splitLine[0].Contains(":") || splitLine[0].Contains(";") || splitLine[0].Contains("<") || splitLine[0].Contains(">"))
-                        {
-                            emoteFound = true;
-                        }
                 }
 
                 if (!emoteFound)
@@ -453,8 +448,6 @@ namespace TwitchSpammer
                 Task<int> downloadTask = DownloadEmote(emoteName[i], emoteLink[i], DI);
                 int result = await downloadTask;
             }
-
-
 
             if (addedNewEmotes)
             {
@@ -508,7 +501,7 @@ namespace TwitchSpammer
 
             Console.WriteLine(link + " " + path + emote);
 
-            await Task.Delay(1000);
+            await Task.Delay(500);
             return 1;
             
         }
