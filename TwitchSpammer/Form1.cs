@@ -83,6 +83,14 @@ namespace TwitchSpammer
             getSavedText();
 
             GetDebugSettings();
+
+            ServicePointManager.DefaultConnectionLimit = 100;
+            //ServicePointManager.ServerCertificateValidationCallback = delegate
+            //{ return true; };
+
+            //Trust all certificates
+            //System.Net.ServicePointManager.ServerCertificateValidationCallback =
+            //    ((sender, certificate, chain, sslPolicyErrors) => true);
         }
 
         private void GetDebugSettings()
@@ -378,12 +386,12 @@ namespace TwitchSpammer
             string emoteFile = @"emoteFile.txt";
             wc.DownloadFileCompleted += new AsyncCompletedEventHandler(EmoteUpdateFileComplete);
             wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
-            wc.Headers.Add("User-Agent: Other");
+            wc.Headers.Add("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
             wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/AandyLi/TwitchSpammer/master/emotelinks.txt"), emoteFile);  
 
         }
 
-        private void ReadEmoteFile(string emoteFile)
+        private async Task ReadEmoteFile(string emoteFile)
         {
 
             DownloadInfo DI = new DownloadInfo(0, 0);
@@ -402,6 +410,10 @@ namespace TwitchSpammer
 
             string[] lines = File.ReadAllLines(emoteFile);
 
+            List<string> emoteName = new List<string>();
+            List<string> emoteLink = new List<string>();
+
+
             foreach (string line in lines)
             {
                 string[] splitLine = line.Split(' ');
@@ -415,6 +427,12 @@ namespace TwitchSpammer
                     {
                         emoteFound = true;
                     }
+
+                        // remove later
+                        if (splitLine[0].Contains(":") || splitLine[0].Contains(";") || splitLine[0].Contains("<") || splitLine[0].Contains(">"))
+                        {
+                            emoteFound = true;
+                        }
                 }
 
                 if (!emoteFound)
@@ -423,11 +441,19 @@ namespace TwitchSpammer
                     addedNewEmotes = true;
                     UpdateDownloadEmoteText(DI);
 
-                    // download emote
-                    DownloadEmote(splitLine[0], splitLine[1], DI);
-                    
+                    // add to list
+                    emoteName.Add(splitLine[0]);
+                    emoteLink.Add(splitLine[1]);
                 }
             }
+
+            for (int i = 0; i < emoteName.Count; i++)
+            {
+                // download emote
+                Task<int> downloadTask = DownloadEmote(emoteName[i], emoteLink[i], DI);
+                int result = await downloadTask;
+            }
+
 
 
             if (addedNewEmotes)
@@ -460,11 +486,16 @@ namespace TwitchSpammer
         private void UpdateDownloadEmoteText(DownloadInfo DI)
         {
             label11.Text = "Downloading emote " + DI.CurrentDownload + " of " + DI.TotalDownloads.ToString();
+
+            float value = (float)DI.CurrentDownload / DI.TotalDownloads;
+            float percentage = value * 100;
+
+            progressBar1.Value = (int)percentage;
+
         }
 
-        private void DownloadEmote(string emote, string link, DownloadInfo DI)
+        private async Task<int> DownloadEmote(string emote, string link, DownloadInfo DI)
         {
-            DI.CurrentDownload++;
 
             string path = GetImagesFolderPath();
 
@@ -472,10 +503,14 @@ namespace TwitchSpammer
             
             wc.DownloadFileCompleted += new AsyncCompletedEventHandler(complete);
             wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
-            wc.Headers.Add("User-Agent: Other");
-            wc.DownloadFileAsync(new Uri(link), path + emote + ".png");
+            wc.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36");
+            wc.DownloadFileAsync(new Uri(link), path + emote + ".png", DI);
 
-            UpdateDownloadEmoteText(DI);
+            Console.WriteLine(link + " " + path + emote);
+
+            await Task.Delay(2000);
+            return 1;
+            
         }
 
         private void EmoteUpdateFileComplete(object sender, AsyncCompletedEventArgs e)
@@ -487,12 +522,15 @@ namespace TwitchSpammer
 
         private void complete(object sender, AsyncCompletedEventArgs e)
         {
-           //MessageBox.Show("Download complete");
+            //MessageBox.Show("Download complete");
+            DownloadInfo DI = (DownloadInfo) e.UserState;
+            DI.CurrentDownload++;
+            UpdateDownloadEmoteText(DI);
         }
 
         private void updateProgressBar(object sender, DownloadProgressChangedEventArgs e)
         {
-            progressBar1.Value = e.ProgressPercentage;
+            //progressBar1.Value = e.ProgressPercentage;
         }
 
         private void listView2_MouseClick(object sender, MouseEventArgs e)
