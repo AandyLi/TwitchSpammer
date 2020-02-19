@@ -69,6 +69,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -472,11 +473,23 @@
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(332, 570);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(95, 23);
+            this.button6.TabIndex = 25;
+            this.button6.Text = "Filter emotes";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1176, 605);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button5);
@@ -560,6 +573,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button button6;
     }
 }
 

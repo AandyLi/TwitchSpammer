@@ -75,8 +75,8 @@ namespace TwitchSpammer
 
         public Form1()
         {
+            //Properties.Settings.Default.Reset();
             InitializeComponent();
-
 
             getImages();
 
@@ -106,9 +106,7 @@ namespace TwitchSpammer
         private void getImages()
         {
 
-
             string imgPath = GetImagesFolderPath();
-
 
             // Load images into imagelist
             try
@@ -118,25 +116,31 @@ namespace TwitchSpammer
 
                 foreach (String path in Directory.GetFiles(imgPath))
                 {
-                    Console.WriteLine(path);
+                    //Console.WriteLine(path);
 
                     imageList1.Images.Add(Path.GetFileNameWithoutExtension(path), Image.FromFile(path));
                 }
 
                 listView1.LargeImageList = imageList1;
-
-                foreach (var key in imageList1.Images.Keys)
-                {
-
-                    listView1.Items.Add(key, key);
-                }
             }
             catch (Exception e)
             {
                 MessageBox.Show("No image folder found" + e.Message);
                 throw;
             }
-           
+
+            // Get the filtered emotes
+            var filteredEmotes = Properties.Settings.Default.FilteredEmotes.Split(',');
+
+            // Convert to list for easier use
+            var emoteList = imageList1.Images.Keys.Cast<string>().ToList();
+
+            // Add each emote except the filtered ones
+            foreach (string emote in emoteList.Except(filteredEmotes))
+            {
+                listView1.Items.Add(emote, emote);
+            }
+   
         }
 
         private void ClearImagesList()
@@ -628,6 +632,35 @@ namespace TwitchSpammer
 
             return imgPath;
 #endif
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // Initialize a new form
+            Form2 form2 = new Form2();
+
+            // Access form2's checkbox list
+            CheckedListBox form2CheckedListBox = form2.checkedListBox_public;
+
+            // Get the filtered emotes
+            var filteredEmotes = Properties.Settings.Default.FilteredEmotes.Split(',');
+
+            // Get the emote list
+            var emoteList = imageList1.Images.Keys.Cast<string>().ToList();
+
+            // Add all emotes into the checkbox list and determine check status by emote filter
+            foreach (var emote in emoteList)
+            {
+                bool isFiltered = filteredEmotes.Contains(emote);
+                form2CheckedListBox.Items.Add(emote, !isFiltered);
+            }
+
+            // Show form2. This will also wait until it's closed
+            var dialogResult = form2.ShowDialog();
+
+            // After form2 is closed the emotes will be reloaded
+            ReloadEmotes();
+
         }
     }
 }
