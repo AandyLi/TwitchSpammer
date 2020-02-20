@@ -84,6 +84,8 @@ namespace TwitchSpammer
 
             GetDebugSettings();
 
+            PaddAndMoveMouseLabel();
+
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = 
                      SecurityProtocolType.Tls
@@ -117,8 +119,10 @@ namespace TwitchSpammer
                 foreach (String path in Directory.GetFiles(imgPath))
                 {
                     //Console.WriteLine(path);
+                    //Console.WriteLine("Trying to add image " + Path.GetFileNameWithoutExtension(path));
 
                     imageList1.Images.Add(Path.GetFileNameWithoutExtension(path), Image.FromFile(path));
+
                 }
 
                 listView1.LargeImageList = imageList1;
@@ -165,9 +169,36 @@ namespace TwitchSpammer
             }
         }
 
+        /// <summary>
+        /// Label that covers everything when locating chat box
+        /// </summary>
+        private void PaddAndMoveMouseLabel() 
+        {
+            int heightPad = (this.Height / 2) - (label12.Height / 2);
+            int widthPad = (this.Width / 2) - (label12.Width / 2);
+
+            label12.Padding = new Padding(widthPad, heightPad, widthPad, heightPad);
+            label12.Location = new Point(0, -25);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            // Debug
             timer2.Start();
+
+            label12.Visible = true;
+            
+            // Create invisible form
+            Form3 form3 = new Form3();
+
+            form3.ShowDialog();
+            // Get chat box location
+            Point p = form3.getMousePos;
+
+            label12.Visible = false;
+
+            chatBoxMouseX = p.X;
+            chatBoxMouseY = p.Y;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -191,18 +222,10 @@ namespace TwitchSpammer
             label3.Text += p.Y.ToString();
 
             timer2.Stop();
-
-
-            // Temp
-            chatBoxMouseX = p.X;
-            chatBoxMouseY = p.Y;
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-
             if (numericUpDown3.Value > 0)
             {
                 timer3.Interval = (int)numericUpDown2.Value * 1000;
@@ -414,8 +437,8 @@ namespace TwitchSpammer
 
             string[] lines = File.ReadAllLines(emoteFile);
 
-            List<string> emoteName = new List<string>();
-            List<string> emoteLink = new List<string>();
+            List<string> emoteNames = new List<string>();
+            List<string> emoteLinks = new List<string>();
 
 
             foreach (string line in lines)
@@ -441,15 +464,15 @@ namespace TwitchSpammer
                     UpdateDownloadEmoteText(DI);
 
                     // add to list
-                    emoteName.Add(splitLine[0]);
-                    emoteLink.Add(splitLine[1]);
+                    emoteNames.Add(splitLine[0]);
+                    emoteLinks.Add(splitLine[1]);
                 }
             }
 
-            for (int i = 0; i < emoteName.Count; i++)
+            for (int i = 0; i < emoteNames.Count; i++)
             {
                 // download emote
-                Task<int> downloadTask = DownloadEmote(emoteName[i], emoteLink[i], DI);
+                Task<int> downloadTask = DownloadEmote(emoteNames[i], emoteLinks[i], DI);
                 int result = await downloadTask;
             }
 
@@ -505,7 +528,7 @@ namespace TwitchSpammer
 
             Console.WriteLine(link + " " + path + emote);
 
-            await Task.Delay(500);
+            await Task.Delay(50);
             return 1;
             
         }
@@ -653,6 +676,7 @@ namespace TwitchSpammer
             {
                 bool isFiltered = filteredEmotes.Contains(emote);
                 form2CheckedListBox.Items.Add(emote, !isFiltered);
+                
             }
 
             // Show form2. This will also wait until it's closed
@@ -662,5 +686,6 @@ namespace TwitchSpammer
             ReloadEmotes();
 
         }
+
     }
 }
