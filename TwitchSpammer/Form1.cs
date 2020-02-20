@@ -71,7 +71,7 @@ namespace TwitchSpammer
         int chatBoxMouseX;
         int chatBoxMouseY;
 
-        int multiplyDecrease = 0;
+        int msgPeriodAppend = 0;
 
         public Form1()
         {
@@ -228,7 +228,7 @@ namespace TwitchSpammer
         {
             if (numericUpDown3.Value > 0)
             {
-                timer3.Interval = (int)numericUpDown2.Value * 1000;
+                timer3.Interval = checkBox6.Checked ? (int)numericUpDown2.Value : (int)numericUpDown2.Value * 1000;
                 timer3.Start();
             }
             else
@@ -253,7 +253,7 @@ namespace TwitchSpammer
             if (numericUpDown1.Value > 0)
             {
                 // Repeat for every n - 1 messages, also decrease if spam is enabled
-                for (int i = 0; i < (numericUpDown1.Value - 1 - multiplyDecrease); i++)
+                for (int i = 0; i < (numericUpDown1.Value - 1); i++)
                 {
                     msg += textBoxText;
 
@@ -266,6 +266,12 @@ namespace TwitchSpammer
 
                 // Send nth message
                 msg += textBoxText;
+
+                // Add period(s) at end
+                for (int i = 0; i < msgPeriodAppend; i++)
+                {
+                    msg += ".";
+                }
             }
             else
             {
@@ -379,13 +385,13 @@ namespace TwitchSpammer
             numericUpDown3.Value --;
             if (checkBox2.Checked)
             {
-                multiplyDecrease++;
+                msgPeriodAppend++;
             }
 
             if (numericUpDown3.Value == 0)
             {
                 timer3.Stop();
-                multiplyDecrease = 0;
+                msgPeriodAppend = 0;
             }
         }
 
@@ -687,5 +693,16 @@ namespace TwitchSpammer
 
         }
 
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox6.Checked)
+            {
+                label7.Text = "Interval (ms)";
+            }
+            else
+            {
+                label7.Text = "Interval (s)";
+            }
+        }
     }
 }

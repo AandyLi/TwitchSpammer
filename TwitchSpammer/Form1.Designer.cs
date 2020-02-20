@@ -71,6 +71,7 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.button6 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -215,7 +216,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 118);
+            this.label7.Location = new System.Drawing.Point(6, 84);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(110, 24);
             this.label7.TabIndex = 12;
@@ -224,7 +225,7 @@
             // numericUpDown2
             // 
             this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown2.Location = new System.Drawing.Point(10, 145);
+            this.numericUpDown2.Location = new System.Drawing.Point(10, 111);
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(71, 31);
             this.numericUpDown2.TabIndex = 13;
@@ -326,6 +327,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.checkBox6);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.button7);
             this.panel2.Controls.Add(this.checkBox5);
@@ -334,9 +336,9 @@
             this.panel2.Controls.Add(this.checkBox3);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.panel2.Location = new System.Drawing.Point(434, 344);
+            this.panel2.Location = new System.Drawing.Point(434, 316);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(314, 249);
+            this.panel2.Size = new System.Drawing.Size(314, 277);
             this.panel2.TabIndex = 20;
             this.panel2.Visible = false;
             // 
@@ -344,7 +346,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(82, 211);
+            this.label11.Location = new System.Drawing.Point(82, 250);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(107, 16);
             this.label11.TabIndex = 28;
@@ -352,7 +354,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(85, 156);
+            this.button7.Location = new System.Drawing.Point(85, 195);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(146, 23);
             this.button7.TabIndex = 26;
@@ -374,7 +376,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(3, 185);
+            this.progressBar1.Location = new System.Drawing.Point(3, 224);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(306, 23);
             this.progressBar1.TabIndex = 27;
@@ -428,7 +430,7 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(10, 87);
+            this.checkBox2.Location = new System.Drawing.Point(10, 148);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(139, 28);
             this.checkBox2.TabIndex = 21;
@@ -496,6 +498,18 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Move your mouse over the chatbox and left click";
             this.label12.Visible = false;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox6.Location = new System.Drawing.Point(7, 152);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(300, 28);
+            this.checkBox6.TabIndex = 29;
+            this.checkBox6.Text = "Use milliseconds instead of s";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
             // Form1
             // 
@@ -589,6 +603,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox checkBox6;
     }
 }
 
