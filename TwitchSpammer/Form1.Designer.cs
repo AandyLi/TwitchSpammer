@@ -226,8 +226,13 @@
             // 
             this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDown2.Location = new System.Drawing.Point(10, 111);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(71, 31);
+            this.numericUpDown2.Size = new System.Drawing.Size(106, 31);
             this.numericUpDown2.TabIndex = 13;
             // 
             // imageList1
@@ -444,7 +449,7 @@
             this.numericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDown3.Location = new System.Drawing.Point(10, 50);
             this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(71, 31);
+            this.numericUpDown3.Size = new System.Drawing.Size(106, 31);
             this.numericUpDown3.TabIndex = 23;
             // 
             // label10
