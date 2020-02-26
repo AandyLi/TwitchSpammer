@@ -72,6 +72,8 @@ namespace TwitchSpammer
         int chatBoxMouseY;
 
         int msgPeriodAppend = 0;
+        Theme theme;
+
 
         public Form1()
         {
@@ -85,6 +87,9 @@ namespace TwitchSpammer
             GetDebugSettings();
 
             PaddAndMoveMouseLabel();
+
+            theme = new Theme(this);
+
 
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = 
@@ -338,7 +343,7 @@ namespace TwitchSpammer
             else if (listView2.Visible == true)
             {
                 listView2.Visible = false;
-                button3.Text = "Custom";
+                button3.Text = "Saved";
                 listView1.Visible = true;
             }
         }
@@ -372,7 +377,19 @@ namespace TwitchSpammer
             }
             else
             {
-                panel2.Visible = true; 
+                panel2.Visible = true;
+
+                comboBox1.Text = Properties.Settings.Default.AppliedTheme;
+
+                if (comboBox1.Items.Count <= 0)
+                {
+                    List<string> ThemeNames = theme.GetAllThemes();
+                    foreach (string theme in ThemeNames)
+                    {
+                        comboBox1.Items.Add(theme);
+                    }
+                }
+
             }
         }
 
@@ -703,6 +720,35 @@ namespace TwitchSpammer
             {
                 label7.Text = "Interval (s)";
             }
+        }
+
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            theme.SetTheme(comboBox1.SelectedItem.ToString());
+
+            Properties.Settings.Default.AppliedTheme = comboBox1.SelectedItem.ToString();
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox6.Checked)
+            {
+                Properties.Settings.Default.UserSkipUpdate = false;
+            }
+            else
+            {
+                Properties.Settings.Default.UserSkipUpdate = true;
+            }
+
+            Properties.Settings.Default.Save();
         }
     }
 }

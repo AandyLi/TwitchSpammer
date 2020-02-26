@@ -34,5 +34,40 @@ namespace TwitchSpammer.Properties {
                 this["FilteredEmotes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastThemesDownloadDate {
+            get {
+                return ((global::System.DateTime)(this["LastThemesDownloadDate"]));
+            }
+            set {
+                this["LastThemesDownloadDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UserSkipUpdate {
+            get {
+                return ((bool)(this["UserSkipUpdate"]));
+            }
+            set {
+                this["UserSkipUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AppliedTheme {
+            get {
+                return ((string)(this["AppliedTheme"]));
+            }
+            set {
+                this["AppliedTheme"] = value;
+            }
+        }
     }
 }

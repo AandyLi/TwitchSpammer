@@ -1,0 +1,179 @@
+{
+	"VersionNr": 0,
+	"ThemesList": [
+		{
+			"ThemeName": "Light Theme",
+			"Ctrl": [
+				{
+					"ControlName": "Button",
+					"BackColor": "100, 65, 164",
+					"ForeColor": "255, 255, 255",
+					"Font": "Arial, 14pt",
+					"FlatStyle": 1
+				},
+				{
+					"ControlName": "ListView",
+					"BackColor": "242, 242, 242",
+					"ForeColor": "",
+					"Font": null
+				},
+				{
+					"ControlName": "Form",
+					"BackColor": "255, 255, 255"
+				},
+				{
+					"ControlName": "TextBox",
+					"BackColor": "242, 242, 242",
+					"ForeColor": "",
+					"Font": "Arial, 14pt"
+				},
+				{
+					"ControlName": "RichTextBox",
+					"BackColor": "242, 242, 242",
+					"ForeColor": "",
+					"Font": null
+				},
+				{
+					"ControlName": "Label",
+					"BackColor": "255, 255, 255",
+					"ForeColor": "Black",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "CheckBox",
+					"BackColor": "255, 255, 255",
+					"ForeColor": "Black",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "GroupBox",
+					"BackColor": "255, 255, 255",
+					"ForeColor": "Black",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "NumericUpDown",
+					"BackColor": "255, 255, 255",
+					"ForeColor": "Black",
+					"Font": "Arial, 15.75pt"
+				}
+			]
+		},
+		{
+			"ThemeName": "Dark Theme",
+			"Ctrl": [
+				{
+					"ControlName": "Form",
+					"BackColor": "31, 31, 35"
+				},
+				{
+					"ControlName": "ListView",
+					"BackColor": "24, 24, 27",
+					"ForeColor": "239, 239, 241",
+					"Font": "Arial, 10pt"
+				},
+				{
+					"ControlName": "Button",
+					"BackColor": "100, 65, 164",
+					"ForeColor": "239, 239, 241",
+					"Font": "Arial, 14pt",
+					"FlatStyle": 1
+				},
+				{
+					"ControlName": "TextBox",
+					"BackColor": "24, 24, 27",
+					"ForeColor": "239, 239, 241",
+					"Font": "Arial, 14pt"
+				},
+				{
+					"ControlName": "RichTextBox",
+					"BackColor": "24, 24, 27",
+					"ForeColor": "239, 239, 241",
+					"Font": "Arial, 14pt"
+				},
+				{
+					"ControlName": "Label",
+					"BackColor": "31, 31, 35",
+					"ForeColor": "239, 239, 241",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "CheckBox",
+					"BackColor": "31, 31, 35",
+					"ForeColor": "239, 239, 241",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "GroupBox",
+					"BackColor": "31, 31, 35",
+					"ForeColor": "239, 239, 241",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "NumericUpDown",
+					"BackColor": "31, 31, 35",
+					"ForeColor": "239, 239, 241",
+					"Font": "Arial, 15.75pt"
+				}
+			]
+		},
+		{
+			"ThemeName": "Windows Theme",
+			"Ctrl": [
+				{
+					"ControlName": "Button",
+					"BackColor": "Control",
+					"ForeColor": "ControlText",
+					"Font": "Arial, 14pt",
+					"FlatStyle": 3
+				},
+				{
+					"ControlName": "ListView",
+					"BackColor": "Window",
+					"ForeColor": "WindowText",
+					"Font": null
+				},
+				{
+					"ControlName": "Form",
+					"BackColor": "Control"
+				},
+				{
+					"ControlName": "TextBox",
+					"BackColor": "Window",
+					"ForeColor": "WindowText",
+					"Font": "Arial, 14pt"
+				},
+				{
+					"ControlName": "RichTextBox",
+					"BackColor": "Window",
+					"ForeColor": "WindowText",
+					"Font": "Arial, 14pt"
+				},
+				{
+					"ControlName": "Label",
+					"BackColor": "Control",
+					"ForeColor": "ControlText",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "CheckBox",
+					"BackColor": "Control",
+					"ForeColor": "ControlText",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "GroupBox",
+					"BackColor": "Control",
+					"ForeColor": "ControlText",
+					"Font": "Arial, 15.75pt"
+				},
+				{
+					"ControlName": "NumericUpDown",
+					"BackColor": "Window",
+					"ForeColor": "WindowText",
+					"Font": "Arial, 15.75pt"
+				}
+			]
+		}
+	]
+}
