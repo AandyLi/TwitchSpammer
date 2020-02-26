@@ -15,7 +15,7 @@
 					"ControlName": "ListView",
 					"BackColor": "242, 242, 242",
 					"ForeColor": "",
-					"Font": null
+					"Font": "Arial, 10pt"
 				},
 				{
 					"ControlName": "Form",
@@ -131,7 +131,7 @@
 					"ControlName": "ListView",
 					"BackColor": "Window",
 					"ForeColor": "WindowText",
-					"Font": null
+					"Font": "Arial, 10pt"
 				},
 				{
 					"ControlName": "Form",
