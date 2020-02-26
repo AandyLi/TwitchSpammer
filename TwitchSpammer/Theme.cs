@@ -72,7 +72,7 @@ namespace TwitchSpammer
 
             if (Properties.Settings.Default.AppliedTheme != "")
             {
-                //SetTheme(Properties.Settings.Default.AppliedTheme);
+                SetTheme(Properties.Settings.Default.AppliedTheme);
             }
         }
 
