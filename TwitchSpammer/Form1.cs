@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Net;
-
+using System.Text.RegularExpressions;
 
 
 // Todo / Feature list
@@ -58,7 +58,7 @@ using System.Net;
 
 
 
-    // Test
+// Test
 
 
 
@@ -166,7 +166,9 @@ namespace TwitchSpammer
                     //Console.WriteLine(path);
                     //Console.WriteLine("Trying to add image " + Path.GetFileNameWithoutExtension(path));
 
-                    imageList1.Images.Add(Path.GetFileNameWithoutExtension(path), Image.FromFile(path));
+                    string emoteName = Path.GetFileNameWithoutExtension(path);
+
+                    imageList1.Images.Add(ConvertEmoteName(emoteName), Image.FromFile(path));
 
                 }
 
@@ -190,6 +192,23 @@ namespace TwitchSpammer
                 listView1.Items.Add(emote, emote);
             }
    
+        }
+
+        private string ConvertEmoteName(string oldName)
+        {
+            string input = oldName;
+
+            if (input[0] == '-' && input[1] != '-')
+            {
+                input = "<" + input.Substring(1);
+            }
+            else if(input[0] == '-' && input[1] == '-')
+            {
+                input = ">" + input.Substring(2);
+            }
+
+
+            return input;
         }
 
         private void ClearImagesList()
@@ -526,6 +545,8 @@ namespace TwitchSpammer
                     addedNewEmotes = true;
                     UpdateDownloadEmoteText(DI);
 
+                    splitLine[0] = CheckSpecialCaseEmotes(splitLine[0]);
+
                     // add to list
                     emoteNames.Add(splitLine[0]);
                     emoteLinks.Add(splitLine[1]);
@@ -554,6 +575,28 @@ namespace TwitchSpammer
                 File.Delete(emoteFile);
             }
 
+        }
+        private string CheckSpecialCaseEmotes(string emote)
+        {
+            string input = emote;
+
+            var regexItem = new Regex(@"[\/:*?<>]+");
+
+            if (regexItem.IsMatch(input))
+            {
+                Console.WriteLine("Match.. " + input);
+                if (input[0] == '<')
+                {
+                    input = "-" + input.Substring(1);
+                }
+                else if(input[0] == '>')
+                {
+                    input = "--" + input.Substring(1);
+                }
+            }
+
+
+            return input;
         }
         private void ReloadEmotes()
         {
