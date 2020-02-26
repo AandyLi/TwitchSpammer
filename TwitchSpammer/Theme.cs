@@ -70,8 +70,6 @@ namespace TwitchSpammer
 
             GetThemes();
 
-            LoadThemesFromFile();
-
             if (Properties.Settings.Default.AppliedTheme != "")
             {
                 //SetTheme(Properties.Settings.Default.AppliedTheme);
