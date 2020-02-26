@@ -75,6 +75,7 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.button6 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -292,6 +293,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -567,6 +569,18 @@
             this.label12.Text = "Move your mouse over the chatbox and left click";
             this.label12.Visible = false;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(115)))), ((int)(((byte)(200)))));
+            this.label14.Location = new System.Drawing.Point(1052, 5);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(116, 15);
+            this.label14.TabIndex = 19;
+            this.label14.Tag = "-1";
+            this.label14.Text = "Created by AandyLi";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -663,6 +677,7 @@
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
     }
 }
 
