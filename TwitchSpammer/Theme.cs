@@ -68,7 +68,7 @@ namespace TwitchSpammer
         {
             clientForm = form;
 
-            //GetThemes();
+            GetThemes();
 
             LoadThemesFromFile();
 
@@ -144,13 +144,17 @@ namespace TwitchSpammer
 
         private void DownloadThemes()
         {
+            MessageBox.Show("Downloading themes");
+
             WebClient wc = new WebClient();
 
             string themesString = wc.DownloadString(new Uri("https://raw.githubusercontent.com/AandyLi/TwitchSpammer/master/Themes.json"));
 
             File.WriteAllText(@"Themes.json", themesString);
 
-            Properties.Settings.Default.LastThemesDownloadDate = new DateTime().Date;
+            Properties.Settings.Default.LastThemesDownloadDate = DateTime.Now;
+
+            Properties.Settings.Default.Save();
 
             ParseThemes(themesString);
         }

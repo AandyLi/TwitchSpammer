@@ -69,5 +69,41 @@ namespace TwitchSpammer.Properties {
                 this["AppliedTheme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseMs {
+            get {
+                return ((bool)(this["UseMs"]));
+            }
+            set {
+                this["UseMs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoAddSpace {
+            get {
+                return ((bool)(this["AutoAddSpace"]));
+            }
+            set {
+                this["AutoAddSpace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RepeatStreamerName {
+            get {
+                return ((bool)(this["RepeatStreamerName"]));
+            }
+            set {
+                this["RepeatStreamerName"] = value;
+            }
+        }
     }
 }

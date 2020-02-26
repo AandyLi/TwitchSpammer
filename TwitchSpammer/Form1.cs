@@ -88,6 +88,8 @@ namespace TwitchSpammer
 
             PaddAndMoveMouseLabel();
 
+            ApplySavedSettings();
+
             theme = new Theme(this);
 
 
@@ -107,6 +109,44 @@ namespace TwitchSpammer
                 label1.Visible = true;
                 label2.Visible = true;
                 label3.Visible = true;
+            }
+        }
+
+        private void ApplySavedSettings()
+        {
+            if (Properties.Settings.Default.UserSkipUpdate)
+            {
+                checkBox7.Checked = false;
+            }
+
+            if (Properties.Settings.Default.UseMs)
+            {
+                checkBox6.Checked = true;
+                label7.Text = "Interval (ms)";
+            }
+            else
+            {
+                checkBox6.Checked = false;
+                label7.Text = "Interval (s)";
+            }
+
+
+            if (Properties.Settings.Default.AutoAddSpace)
+            {
+                checkBox4.Checked = true;
+            }
+            else
+            {
+                checkBox4.Checked = false;
+            }
+
+            if (Properties.Settings.Default.RepeatStreamerName)
+            {
+                checkBox3.Checked = true;
+            }
+            else
+            {
+                checkBox3.Checked = false;
             }
         }
 
@@ -715,11 +755,14 @@ namespace TwitchSpammer
             if (checkBox6.Checked)
             {
                 label7.Text = "Interval (ms)";
+                Properties.Settings.Default.UseMs = true;
             }
             else
             {
                 label7.Text = "Interval (s)";
+                Properties.Settings.Default.UseMs = false;
             }
+            Properties.Settings.Default.Save();
         }
 
 
@@ -739,13 +782,41 @@ namespace TwitchSpammer
 
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox6.Checked)
+            if (checkBox7.Checked)
             {
                 Properties.Settings.Default.UserSkipUpdate = false;
             }
             else
             {
                 Properties.Settings.Default.UserSkipUpdate = true;
+            }
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+            {
+                Properties.Settings.Default.AutoAddSpace = true;
+            }
+            else
+            {
+                Properties.Settings.Default.AutoAddSpace = false;
+            }
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked)
+            {
+                Properties.Settings.Default.RepeatStreamerName = true;
+            }
+            else
+            {
+                Properties.Settings.Default.RepeatStreamerName = false;
             }
 
             Properties.Settings.Default.Save();

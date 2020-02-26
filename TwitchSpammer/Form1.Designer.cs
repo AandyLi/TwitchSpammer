@@ -458,6 +458,7 @@
             this.checkBox4.Text = "Auto add space";
             this.toolTip1.SetToolTip(this.checkBox4, "Automatically adds a space after adding an emote");
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -470,6 +471,7 @@
             this.checkBox3.Text = "Repeat streamer name";
             this.toolTip1.SetToolTip(this.checkBox3, "When multiplying your messages, the streamer name will be added each time.");
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // panel3
             // 
