@@ -492,11 +492,18 @@ namespace TwitchSpammer
         {
             WebClient wc = new WebClient();
 
-            string emoteFile = @"emoteFile.txt";
-            wc.DownloadFileCompleted += new AsyncCompletedEventHandler(EmoteUpdateFileComplete);
-            wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
-            wc.Headers.Add("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
-            wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/AandyLi/TwitchSpammer/master/emotelinks.txt"), emoteFile);  
+
+            string emoteString = wc.DownloadString(new Uri("https://raw.githubusercontent.com/AandyLi/TwitchSpammer/master/emotelinks.txt"));
+
+            File.WriteAllText(@"emoteFile.txt", emoteString);
+
+            ReadEmoteFile(@"emoteFile.txt");
+
+            //string emoteFile = @"emoteFile.txt";
+            //wc.DownloadFileCompleted += new AsyncCompletedEventHandler(EmoteUpdateFileComplete);
+            //wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
+            //wc.Headers.Add("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
+            //wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/AandyLi/TwitchSpammer/master/emotelinks.txt"), emoteFile);  
 
         }
 
@@ -532,6 +539,7 @@ namespace TwitchSpammer
                 // Look for emote 
                 foreach (string emote in currentEmotes)
                 {
+                    splitLine[0] = CheckSpecialCaseEmotes(splitLine[0]);
                     if (splitLine[0] == emote || splitLine[0].Contains(":"))
                     {
                         emoteFound = true;
@@ -584,7 +592,7 @@ namespace TwitchSpammer
 
             if (regexItem.IsMatch(input))
             {
-                Console.WriteLine("Match.. " + input);
+                //Console.WriteLine("Match.. " + input);
                 if (input[0] == '<')
                 {
                     input = "-" + input.Substring(1);
