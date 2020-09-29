@@ -168,7 +168,14 @@ namespace TwitchSpammer
 
                     string emoteName = Path.GetFileNameWithoutExtension(path);
 
-                    imageList1.Images.Add(ConvertEmoteName(emoteName), Image.FromFile(path));
+                    try
+                    {
+                        imageList1.Images.Add(ConvertEmoteName(emoteName), Image.FromFile(path));
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Failed to add emote " + emoteName + " Error: " + e.Message);
+                    }
 
                 }
 
@@ -176,8 +183,8 @@ namespace TwitchSpammer
             }
             catch (Exception e)
             {
-                MessageBox.Show("No image folder found" + e.Message);
-                throw;
+                MessageBox.Show("No image folder found. Error: " + e.Message);
+                
             }
 
             // Get the filtered emotes
