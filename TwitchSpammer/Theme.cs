@@ -208,18 +208,11 @@ namespace TwitchSpammer
                             {
                                 foreach (PropertyInfo property in propertyList.Skip(1))
                                 {
+                                  
                                     PropertyInfo PI = controlType.GetProperty(property.Name);
 
-                                    try
-                                    {
-                                        // Should check if value can be set. Using try for now
-                                        PI.SetValue(groupBoxControl, property.GetValue(item));
+                                    PI?.SetValue(groupBoxControl, property.GetValue(item));
 
-                                    }
-                                    catch (Exception e)
-                                    {
-
-                                    }
                                 }
                             }
                         }
@@ -234,27 +227,16 @@ namespace TwitchSpammer
                     {
                         foreach (PropertyInfo property in propertyList.Skip(1))
                         {
+
                             PropertyInfo PI = controlType.GetProperty(property.Name);
 
-                            try
-                            {
-                                // Should check if value can be set. Using try for now
-                                PI.SetValue(currentControl, property.GetValue(item));
-
-                            }
-                            catch (Exception e)
-                            {
-                                
-                            }
+                            PI?.SetValue(currentControl, property.GetValue(item));
+ 
                         }
                     }
                 }
             }
-
-
         }
-
-
 
         public List<string> GetAllThemes()
         {
