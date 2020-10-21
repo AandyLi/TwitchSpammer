@@ -90,7 +90,9 @@ namespace TwitchSpammer
 
             ApplySavedSettings();
 
-            Console.WriteLine("Testing");
+            Console.WriteLine("new test");
+
+            Console.WriteLine("Test 2");
 
             theme = new Theme(this);
 
