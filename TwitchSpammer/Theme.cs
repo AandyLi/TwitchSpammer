@@ -59,7 +59,6 @@ namespace TwitchSpammer
 
     class Theme
     {
-
         private Themes allThemes;
         private Form clientForm;
         private string currentTheme;
@@ -110,19 +109,23 @@ namespace TwitchSpammer
                     {
                         
                     }
-
                 }
             }
+        }
 
+        private string GetLocalThemesFile()
+        {
+            string fileName = @"Themes.json";
+            string content;
+
+            content = File.ReadAllText(fileName);
+
+            return content;
         }
 
         private int GetLocalVersionNr()
         {
-            string fileName = @"Themes.json";
-
-            StreamReader sr = new StreamReader(fileName);
-
-            string content = sr.ReadToEnd();
+            string content = GetLocalThemesFile();
 
             Themes td = JsonConvert.DeserializeObject<Themes>(content);
 
@@ -131,11 +134,7 @@ namespace TwitchSpammer
 
         private void LoadThemesFromFile()
         {
-            string fileName = @"Themes.json";
-
-            StreamReader sr = new StreamReader(fileName);
-
-            string content = sr.ReadToEnd();
+            string content = GetLocalThemesFile();
 
             ParseThemes(content);
         }
@@ -164,9 +163,6 @@ namespace TwitchSpammer
             allThemes = td;
         }
 
-
-
-
         public void SetTheme(string themeName)
         {
             currentTheme = themeName;
@@ -174,7 +170,6 @@ namespace TwitchSpammer
             ThemeData td = allThemes.ThemesList.Single(w => w.ThemeName == currentTheme);
 
             ModifyControls(td);
-
         }
 
 
