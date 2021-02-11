@@ -90,16 +90,19 @@ namespace TwitchSpammer
 
             ApplySavedSettings();
 
+            SetSecProtocols();
+
             theme = new Theme(this);
+        }
 
-
+        private void SetSecProtocols()
+        {
             ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = 
+            ServicePointManager.SecurityProtocol =
                      SecurityProtocolType.Tls
                    | SecurityProtocolType.Tls11
                    | SecurityProtocolType.Tls12
                    | SecurityProtocolType.Ssl3;
-
         }
 
         private void GetDebugSettings()
@@ -174,7 +177,7 @@ namespace TwitchSpammer
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Failed to add emote " + emoteName + " Error: " + e.Message);
+                        MessageBox.Show("Failed to add emote " + emoteName + " Error: " + e.Message + ". This could also be because the emote does not exist any more.");
                     }
 
                 }
@@ -568,12 +571,16 @@ namespace TwitchSpammer
                 }
             }
 
+            List<Task<int>> downloadTasks = new List<Task<int>>();
+
             for (int i = 0; i < emoteNames.Count; i++)
             {
-                // download emote
-                Task<int> downloadTask = DownloadEmote(emoteNames[i], emoteLinks[i], DI);
-                int result = await downloadTask;
+                // Add emotes to task list
+                downloadTasks.Add(DownloadEmote(emoteNames[i], emoteLinks[i], DI));
             }
+
+            // Download all emotes parallel
+            var result = await Task.WhenAll(downloadTasks);
 
             if (addedNewEmotes)
             {
