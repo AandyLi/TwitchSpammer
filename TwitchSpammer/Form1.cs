@@ -11,7 +11,6 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
-
 // Todo / Feature list
 
 /*
@@ -486,15 +485,6 @@ namespace TwitchSpammer
         private void button7_Click(object sender, EventArgs e)
         {
             DownloadEmoteUpdateFile();
-
-
-
-            //WebClient wc = new WebClient();
-
-            //wc.DownloadFileCompleted += new AsyncCompletedEventHandler(complete);
-            //wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
-            //wc.Headers.Add("User-Agent: Other");
-            //wc.DownloadFileAsync(new Uri("https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg"), @"c:\test\file2.jpg");
         }
 
 
@@ -582,9 +572,9 @@ namespace TwitchSpammer
             // Download all emotes parallel
             var result = await Task.WhenAll(downloadTasks);
 
-            if (addedNewEmotes)
+            if (addedNewEmotes && DI.CurrentDownload > 1)
             {
-                MessageBox.Show(DI.TotalDownloads.ToString() + " new emotes were added!");
+                MessageBox.Show(DI.CurrentDownload.ToString() + " new emotes were added!");
                 ReloadEmotes();
             }
             else
@@ -644,7 +634,6 @@ namespace TwitchSpammer
 
         private async Task<int> DownloadEmote(string emote, string link, DownloadInfo DI)
         {
-
             string path = GetImagesFolderPath();
 
             WebClient wc = new WebClient();
@@ -652,18 +641,50 @@ namespace TwitchSpammer
             wc.DownloadFileCompleted += new AsyncCompletedEventHandler(complete);
             wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(updateProgressBar);
             wc.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36");
-            wc.DownloadFileAsync(new Uri(link), path + emote + ".png", DI);
 
-            Console.WriteLine(link + " " + path + emote);
+            // Check for deleted emote.
+            try
+            {
+                WebRequest request = WebRequest.Create(new Uri(link));
+                request.Method = "HEAD";
+
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    //Console.WriteLine("{0} {1}", response.ContentLength, response.ContentType);
+                }
+
+                wc.DownloadFileAsync(new Uri(link), path + emote + ".png", DI);
+                //Console.WriteLine(link + " " + path + emote);
+
+            }
+            catch (WebException exception)
+            {
+                #region debug
+                //string responseText;
+
+                //string test = exception.Message + " - " + exception.Response + " - " + exception.Status;
+                //Console.WriteLine(test);
+
+                //var responseStream = exception.Response?.GetResponseStream();
+
+                //if (responseStream != null)
+                //{
+                //    using (var reader = new StreamReader(responseStream))
+                //    {
+                //        responseText = reader.ReadToEnd();
+                //        Console.WriteLine(responseText + emote);
+                //    }
+                //}
+                #endregion
+            }
 
             await Task.Delay(50);
             return 1;
-            
         }
+
 
         private void EmoteUpdateFileComplete(object sender, AsyncCompletedEventArgs e)
         {
-
             string emoteFile = @"emoteFile.txt";
             ReadEmoteFile(emoteFile);
         }
