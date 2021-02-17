@@ -509,8 +509,7 @@ namespace TwitchSpammer
 
         private async Task ReadEmoteFile(string emoteFile)
         {
-
-            DownloadInfo DI = new DownloadInfo(0, 0);
+            DownloadInfo DI = new DownloadInfo();
 
             bool addedNewEmotes = false;
 
@@ -544,7 +543,6 @@ namespace TwitchSpammer
                     {
                         emoteFound = true;
                     }
-
                 }
 
                 if (!emoteFound)
@@ -575,18 +573,25 @@ namespace TwitchSpammer
             if (addedNewEmotes && DI.CurrentDownload > 1)
             {
                 MessageBox.Show(DI.CurrentDownload.ToString() + " new emotes were added!");
+                ResetProgressBar();
                 ReloadEmotes();
             }
             else
             {
                 MessageBox.Show("No new emotes were added");
+                ResetProgressBar();
             }
 
             if (File.Exists(emoteFile))
             {
                 File.Delete(emoteFile);
             }
+        }
 
+        private void ResetProgressBar()
+        {
+            progressBar1.Value = 0;
+            label11.Text = "";
         }
         private string CheckSpecialCaseEmotes(string emote)
         {
@@ -606,7 +611,6 @@ namespace TwitchSpammer
                     input = "--" + input.Substring(1);
                 }
             }
-
 
             return input;
         }

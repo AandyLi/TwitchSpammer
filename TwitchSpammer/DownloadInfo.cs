@@ -11,7 +11,7 @@ namespace TwitchSpammer
         public int TotalDownloads { get; set; }
         public int CurrentDownload { get; set; }
 
-        public DownloadInfo(int TotalDownloads, int CurrentDownload)
+        public DownloadInfo(int TotalDownloads = 0, int CurrentDownload = 0)
         {
             this.TotalDownloads = TotalDownloads;
             this.CurrentDownload = CurrentDownload;
