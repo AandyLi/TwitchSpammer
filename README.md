@@ -1,7 +1,7 @@
 # TwitchSpammer
 
-TwitchSpammer was made to make it easier and faster to communicate in twitch chat. While it can be used as a tool to easily spam the chat, 
-it also cointains numerous features that can improve the chatting experience. Some of these features are:
+TwitchSpammer was made to make it easier and faster to communicate in twitch chat. It was originally intended as a proof of concept of how to send a message from an external application to the chat, 
+but later grew into a program with numerous features that can improve the chatting experience. Some of these features are:
 
 
 * Emote list - Can't remember all emote names? This is for you.
