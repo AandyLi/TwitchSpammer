@@ -3,16 +3,16 @@
 TwitchSpammer was made to make it easier and faster to communicate in twitch chat. It was originally intended as a proof of concept of how to send a message from an external application to the chat, 
 but later grew into a program with numerous features that can improve the chatting experience. Some of these features are:
 
-
+* Automatic emote downloads - Download the latest emotes automatically.
 * Emote list - Can't remember all emote names? This is for you.
 * Fast emote - Click an emote and it is instantly sent to chat.
 * Filter emotes - Too many emotes? Filter them away.
+* Themes - Want a light or dark theme? It's there. Also, new themes are downloaded automatically.
 * Customize message - Build you message before sending it.
 * Save custom messages - Have some spicy copy pasta? Save it for later.
 * Instant custom message - Send you copy pasta in one click.
-* Automatic emote downloads - Download the latest emotes automatically.
-* Spam mode - Customize how you want your message to be spammed.
-* Themes - Want a light or dark theme? It's there. Also, new themes are downloaded automatically.
+* "Spam mode" - Customize how you want your message to be sent.
+
 
 # User interface
 
